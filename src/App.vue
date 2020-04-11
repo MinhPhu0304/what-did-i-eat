@@ -1,17 +1,45 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div id='app'>
+    <Search @onsubmitBarcode='submitBarcode' />
+    <Product v-bind="productData"/>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Search from './components/search.vue'
+import Product from './components/product.vue'
 
 export default {
   name: 'App',
+  data: function () {
+    return {
+      recepies: [],
+      productData: null
+    }
+  },
   components: {
-    HelloWorld
+    Search,
+    Product
+  },
+  methods: {
+    submitBarcode: async function (barcode) {
+      const res = await fetch(
+        `/api/v0/product/=${barcode}`, {
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: '*/*'
+          }
+        }
+      )
+      const data = await res.json()
+      if (data.status_verbose === 'product found') {
+        this.productData = data.product
+      } else {
+        this.productData = {
+          NOT_FOUND: 'Product not found'
+        }
+      }
+    }
   }
 }
 </script>
@@ -24,5 +52,6 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+  box-sizing: border-box;
 }
 </style>
