@@ -1,7 +1,7 @@
 <template>
   <div id='app'>
     <Search @onsubmitBarcode='submitBarcode' />
-    <Product v-bind="productData"/>
+    <Product :product="productData"/>
   </div>
 </template>
 
