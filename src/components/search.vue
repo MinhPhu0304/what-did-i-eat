@@ -4,9 +4,10 @@
       id="video"
       width="300"
       height="200"
-      style="border: 1px solid gray"
       ref="scanner">
     </video>
+    <button v-on:click="stopRecord"> Stop record </button>
+    <button v-on:click="start"> Start recording </button>
   </div>
 </template>
 
@@ -33,11 +34,16 @@ export default {
   },
   methods: {
     start () {
-      this.barCodeReader.decodeFromVideoDevice(undefined, this.$refs.scanner, (result, err) => {
+      this.barCodeReader.decodeOnceFromVideoDevice(undefined, 'video').then((result) => {
         if (result) {
           this.$emit('onsubmitBarcode', result.text)
         }
+      }).catch((err) => {
+        console.error(err)
       })
+    },
+    stopRecord () {
+      this.barCodeReader.reset()
     }
   }
 }
