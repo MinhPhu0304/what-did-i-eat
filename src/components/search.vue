@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="search">
     <div class="video__scanner__container">
       <video id="video" width="300" height="200" ref="scanner"></video>
       <button v-on:click="stopRecord">Stop record</button>
@@ -7,7 +7,11 @@
     </div>
     <div>
       <form v-on:submit="onTextInputSubmit">
-        <label> Barcode number: <input type="number" v-model="barcodeText"/> </label>
+        <label>
+          Barcode number:
+          <input type="number" v-model="barcodeText" />
+        </label>
+        <button type="submit">Search</button>
       </form>
     </div>
   </div>
@@ -40,6 +44,7 @@ export default {
         .decodeOnceFromVideoDevice(undefined, 'video')
         .then(result => {
           if (result) {
+            this.barcodeText = result.text
             this.$emit('onsubmitBarcode', result.text)
           }
         })
@@ -52,7 +57,9 @@ export default {
     },
     onTextInputSubmit (e) {
       e.preventDefault()
-      this.$emit('onsubmitBarcode', this.barcodeText)
+      if (this.barcodeText) {
+        this.$emit('onsubmitBarcode', this.barcodeText)
+      }
     }
   }
 }
@@ -60,11 +67,32 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+@media (min-width: 320px) {
+  .search {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (min-width: 641px) {
+  .search {
+    display: grid;
+    grid-template-columns: 0.5fr auto;
+  }
+}
+
 .video__scanner__container {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
-.video__scanner__container button{
+.video__scanner__container button {
   width: 100px;
+}
+
+video {
+  border: 1px solid;
+  margin-bottom: 8px;
 }
 </style>
