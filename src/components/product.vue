@@ -9,7 +9,6 @@
         The product may contains a trace of:
         <strong> {{ this.$props.product.traces_from_ingredients }}</strong>
       </p>
-
       <div v-if="this.$props.product.nutrient_levels">
         <div v-for="(value, name) in this.$props.product.nutrient_levels" :key="name">
           <h6>
@@ -17,17 +16,34 @@
           </h6>
         </div>
       </div>
+      <div v-if="this.$props.product.nutriscore_data">
+        <Chart :chartdata="chartConfig.chartData" :options="chartConfig.options"/>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import Chart from './visualization'
+
+import { getChartDataLabel } from '../utils'
 export default {
   name: 'Product',
   props: ['product'],
+  components: {
+    Chart
+  },
   data: function () {
     return {
-      productInfo: { ...this.$props.product }
+      productInfo: { ...this.$props.product },
+      chartConfig: {}
+    }
+  },
+  watch: {
+    product: function (newValue) {
+      if (newValue.nutriscore_data) {
+        this.chartConfig = getChartDataLabel(newValue.nutriscore_data, 'Nutrition points')
+      }
     }
   }
 }
