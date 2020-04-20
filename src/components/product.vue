@@ -1,10 +1,15 @@
 <template>
   <div>
-    <p v-if="this.$props.product === null">Please scann product</p>
+    <p v-if="this.$props.product === null">Please scan product</p>
     <div v-if="this.$props.product != null">
       <p v-if="this.$props.product.NOT_FOUND"> {{ this.$props.product.NOT_FOUND }} </p>
-      <p v-if="this.$props.product.pnns_groups_1"> Type: {{ this.$props.product.pnns_groups_1}} </p>
+      <p v-if="this.$props.product.pnns_groups_1 && this.$props.product.pnns_groups_1 !== 'unknown'"> Type: {{ this.$props.product.pnns_groups_1}} </p>
       <p v-if="this.$props.product.product_name"> {{ this.$props.product.product_name}} </p>
+      <p v-if="this.$props.product.traces_from_ingredients">
+        The product may contains a trace of:
+        <strong> {{ this.$props.product.traces_from_ingredients }}</strong>
+      </p>
+
       <div v-if="this.$props.product.nutrient_levels">
         <div v-for="(value, name) in this.$props.product.nutrient_levels" :key="name">
           <h6>
@@ -22,7 +27,7 @@ export default {
   props: ['product'],
   data: function () {
     return {
-      productInfo: this.$props.product
+      productInfo: { ...this.$props.product }
     }
   }
 }

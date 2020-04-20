@@ -33,7 +33,8 @@ export default {
       )
       const data = await res.json()
       if (data.status_verbose === 'product found') {
-        this.productData = data.product
+        const { product } = data
+        this.productData = product
       } else {
         this.productData = {
           NOT_FOUND: 'Product not found'
@@ -55,3 +56,5 @@ export default {
   box-sizing: border-box;
 }
 </style>
+
+<!-- 9400556015502 -->
