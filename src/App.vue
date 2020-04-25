@@ -1,7 +1,7 @@
 <template>
-  <div id='app'>
-    <Search @onsubmitBarcode='submitBarcode' @submitProductName='submitProductName'/>
-    <Product :product="productData"/>
+  <div id="app">
+    <Search @onsubmitBarcode="submitBarcode" @submitProductName="submitProductName" />
+    <Product :product="productData" />
   </div>
 </template>
 
@@ -9,11 +9,12 @@
 import Search from './components/search.vue'
 import Product from './components/product.vue'
 
+import { getDefaultHeader } from './utils'
+
 export default {
   name: 'App',
   data: function () {
     return {
-      recepies: [],
       productData: null
     }
   },
@@ -24,11 +25,9 @@ export default {
   methods: {
     submitBarcode: async function (barcode) {
       const res = await fetch(
-        `/api/food-database/parser?app_id=${process.env.VUE_APP_edamam_APP_ID}&app_key=${process.env.VUE_APP_edamam_API_KEY}&upc=${barcode}`, {
-          headers: {
-            'Content-Type': 'application/json',
-            Accept: '*/*'
-          }
+        `https://api.edamam.com/api/food-database/parser?app_id=${process.env.VUE_APP_edamam_APP_ID}&app_key=${process.env.VUE_APP_edamam_API_KEY}&upc=${barcode}`,
+        {
+          headers: getDefaultHeader()
         }
       )
       const data = await res.json()
@@ -42,19 +41,22 @@ export default {
       }
     },
     submitProductName: async function (productName) {
-      const res = await fetch(
-        `/api/food-database/parser?app_id=${process.env.VUE_APP_edamam_APP_ID}&app_key=${process.env.VUE_APP_edamam_API_KEY}&ingr=${productName}`, {
-          headers: {
-            'Content-Type': 'application/json',
-            Accept: '*/*'
+      try {
+        const res = await fetch(
+          `https://api.edamam.com/api/food-database/parser?app_id=${process.env.VUE_APP_edamam_APP_ID}&app_key=${process.env.VUE_APP_edamam_API_KEY}&ingr=${productName}`,
+          {
+            headers: getDefaultHeader()
           }
+        )
+        if (!res.ok) throw new Error('Not Found')
+        const data = await res.json().catch(e => console.log(e))
+        if (data.hints.length > 0) {
+          const { hints } = data
+          this.productData = hints
+        } else {
+          throw new Error('Product Not Found')
         }
-      )
-      const data = await res.json()
-      if (data.status_verbose === 'product found') {
-        const { product } = data
-        this.productData = product
-      } else {
+      } catch (e) {
         this.productData = {
           NOT_FOUND: 'Product not found'
         }
@@ -75,5 +77,3 @@ export default {
   box-sizing: border-box;
 }
 </style>
-
-<!-- 9400556015502 -->
