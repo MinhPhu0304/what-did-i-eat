@@ -2,16 +2,23 @@
   <div class="search">
     <div class="video__scanner__container">
       <video id="video" width="300" height="200" ref="scanner"></video>
-      <button v-on:click="stopRecord">Stop record</button>
       <button v-on:click="start">Start recording</button>
+      <button v-on:click="stopRecord">Stop record</button>
     </div>
     <div>
-      <form v-on:submit="onTextInputSubmit">
+      <form v-on:submit="onSubmitBarcode">
         <label>
           Barcode number:
           <input type="number" v-model="barcodeText" />
         </label>
-        <button type="submit">Search</button>
+        <button class="Search__btn" type="submit">Search</button>
+      </form>
+      <form v-on:submit="onSubmitProductName">
+        <label>
+          Product name:
+          <input type="text" v-model="productName" required/>
+        </label>
+        <button class="Search__btn" type="submit">Search</button>
       </form>
     </div>
   </div>
@@ -29,7 +36,8 @@ export default {
         navigator &&
         navigator.mediaDevices &&
         'enumerateDevices' in navigator.mediaDevices,
-      barcodeText: ''
+      barcodeText: '',
+      productName: ''
     }
   },
   mounted () {
@@ -55,11 +63,15 @@ export default {
     stopRecord () {
       this.barCodeReader.reset()
     },
-    onTextInputSubmit (e) {
+    onSubmitBarcode (e) {
       e.preventDefault()
       if (this.barcodeText) {
         this.$emit('onsubmitBarcode', this.barcodeText)
       }
+    },
+    onSubmitProductName (e) {
+      e.preventDefault()
+      this.$emit('submitProductName', this.productName)
     }
   }
 }
@@ -94,5 +106,13 @@ export default {
 video {
   border: 1px solid;
   margin-bottom: 8px;
+}
+
+input {
+  border: 0.5px solid;
+}
+
+.Search__btn {
+  margin: 8px;
 }
 </style>
