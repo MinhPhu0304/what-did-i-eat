@@ -1,6 +1,6 @@
 <template>
   <div id='app'>
-    <Search @onsubmitBarcode='submitBarcode' />
+    <Search @onsubmitBarcode='submitBarcode' @submitProductName='submitProductName'/>
     <Product :product="productData"/>
   </div>
 </template>
@@ -24,7 +24,26 @@ export default {
   methods: {
     submitBarcode: async function (barcode) {
       const res = await fetch(
-        `/api/v0/product/=${barcode}`, {
+        `/api/food-database/parser?app_id=${process.env.VUE_APP_edamam_APP_ID}&app_key=${process.env.VUE_APP_edamam_API_KEY}&upc=${barcode}`, {
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: '*/*'
+          }
+        }
+      )
+      const data = await res.json()
+      if (data.status_verbose === 'product found') {
+        const { product } = data
+        this.productData = product
+      } else {
+        this.productData = {
+          NOT_FOUND: 'Product not found'
+        }
+      }
+    },
+    submitProductName: async function (productName) {
+      const res = await fetch(
+        `/api/food-database/parser?app_id=${process.env.VUE_APP_edamam_APP_ID}&app_key=${process.env.VUE_APP_edamam_API_KEY}&ingr=${productName}`, {
           headers: {
             'Content-Type': 'application/json',
             Accept: '*/*'
