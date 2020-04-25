@@ -1,0 +1,82 @@
+{
+  "CA": {
+    "name": "Calcium",
+    "unit": "mg"
+  },
+  "CHOCDF": {
+    "name": "Carbs",
+    "unit": "g"
+  },
+  "CHOLE": {
+    "name": "Cholesterol",
+    "unit": "mg"
+  },
+  "FAMS": {
+    "name": "Monounsaturated",
+    "unit": "g"
+  },
+  "FAPU":	{
+    "name": "Polyunsaturated",
+    "unit":	"g"
+  },
+  "FAT": {
+    "name":	"Fat",
+    "unit":	"g"
+  },
+  "FATRN": {
+    "name":	"Trans",
+    "unit": "g"
+  },
+  "FE":	{
+    "name": "Iron",
+    "unit": "mg"
+  },
+  "FIBTG":	{
+    "name": "Fiber",
+    "unit":	"g"
+  },
+  "FOLDFE":	{
+    "name": "Folate (Equivalent)",
+    "unit":	"æg"
+  },
+  "K": {
+    "name": "Potassium",
+    "unit": "mg"
+  },
+  "MG":{	
+    "name": "Magnesium",
+    "unit":	"mg"
+  },
+  "NA":	{
+    "name": "Sodium",
+    "unit": "mg"
+  },
+  "ENERC_KCAL": {
+    "name": "Energy",
+    "unit": "kcal"
+  },
+  "SUGAR":	{
+    "name": "Sugars",
+    "unit":	"g"
+  },
+  "VITA_RAE":	{
+    "name": "Vitamin A",
+    "unit":	"æg"
+  },
+  "VITB12": {
+    "name": "Vitamin B12",
+    "unit":	"æg"
+  },
+  "VITB6A":	{
+    "name": "Vitamin B6",
+    "unit":	"mg"
+  },
+  "VITC":	{
+    "name": "Vitamin C",
+    "unit": "mg"
+  },
+	"PROCNT":	{
+    "name": "Protein",
+    "unit":	"g"
+  }
+}
