@@ -24,3 +24,10 @@ export function getChartDataLabel (productData, dataLabel) {
     }
   }
 }
+
+export function getDefaultHeader () {
+  return {
+    'Content-Type': 'application/json',
+    Accept: '*/*'
+  }
+}
