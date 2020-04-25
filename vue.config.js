@@ -2,7 +2,7 @@ module.exports = {
   devServer: {
     proxy: {
       '/api': {
-        target: 'https://world.openfoodfacts.org/',
+        target: 'https://api.edamam.com/',
         ws: true,
         changeOrigin: true
       }
