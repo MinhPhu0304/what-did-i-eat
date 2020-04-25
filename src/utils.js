@@ -1,28 +1,64 @@
 // ts-check
+import Label from './nutritionsName.json'
 
-/**
- * Return data object for chart js to render
- * @param {object} productData
- * @param {string} dataLabel
- */
-export function getChartDataLabel (productData, dataLabel) {
-  const labels = Object.keys(productData)
-  const data = Object.values(productData)
-
+export function getChartDataLabel (nutritionValue) {
+  const filteredOutEnergy = Object.keys(nutritionValue).reduce((acc, nutrition) => {
+    if (nutrition !== 'ENERC_KCAL') {
+      return {
+        ...acc,
+        [nutrition]: nutritionValue[nutrition]
+      }
+    }
+    return acc
+  }, {})
+  const nutritionConverted = Object.keys(filteredOutEnergy).reduce((acc, nutrition) => {
+    if (Label[nutrition].unit !== 'g') {
+      const convertedValue = convertToGrams(Label[nutrition].unit, filteredOutEnergy[nutrition])
+      return {
+        ...acc,
+        [nutrition]: convertedValue
+      }
+    }
+    return {
+      ...acc,
+      [nutrition]: filteredOutEnergy[nutrition]
+    }
+  }, {})
+  const labels = Object.keys(nutritionValue).filter(nutrition => nutrition !== 'ENERC_KCAL')
+  const labelName = labels.map(label => Label[label].name)
+  const data = Object.values(nutritionConverted)
+  const backgroundColor = Object.keys(nutritionConverted).map(() => getRandomHashColor())
   return {
-    chartData: {
-      labels,
-      datasets: [{
-        data,
-        label: dataLabel,
-        backgroundColor: '#c6e48b'
-      }]
+    chartdata: {
+      labels: labelName,
+      datasets: [
+        {
+          label: 'Value',
+          data,
+          backgroundColor
+        }
+      ]
     },
     options: {
       responsive: true,
       maintainAspectRatio: false
     }
   }
+}
+
+/**
+ * @param {"mg"|"æg"} unit
+ * @param {number} value
+ */
+function convertToGrams (unit, value) {
+  if (unit === 'mg') {
+    return value / 1000
+  }
+  return value / 1000000
+}
+
+function getRandomHashColor () {
+  return '#' + Math.floor(Math.random() * 16777215).toString(16)
 }
 
 export function getDefaultHeader () {
