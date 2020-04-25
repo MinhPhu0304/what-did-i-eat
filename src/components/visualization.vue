@@ -1,20 +1,18 @@
 <script>
-import { Bar } from 'vue-chartjs'
+import { Pie } from 'vue-chartjs'
+import { getChartDataLabel } from '../utils'
 
 export default {
-  extends: Bar,
+  extends: Pie,
   props: {
-    chartdata: {
-      type: Object,
-      default: null
-    },
-    options: {
+    data: {
       type: Object,
       default: null
     }
   },
   mounted () {
-    this.renderChart(this.chartdata, this.options)
+    const chartConfig = getChartDataLabel(this.$props.data)
+    this.renderChart(chartConfig.chartdata, chartConfig.options)
   }
 }
 </script>
