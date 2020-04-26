@@ -1,39 +1,48 @@
 {
   "CA": {
     "name": "Calcium",
-    "unit": "mg"
+    "unit": "mg",
+    "color": "#2f4b7c"
   },
   "CHOCDF": {
     "name": "Carbs",
-    "unit": "g"
+    "unit": "g",
+    "color": "#d45087"
   },
   "CHOLE": {
     "name": "Cholesterol",
-    "unit": "mg"
+    "unit": "mg",
+    "color": "#f95d6a"
   },
   "FAMS": {
     "name": "Monounsaturated",
-    "unit": "g"
+    "unit": "g",
+    "color": "#d7385e"
   },
   "FAPU":	{
     "name": "Polyunsaturated",
-    "unit":	"g"
+    "unit":	"g",
+    "color": "#fe346e"
   },
   "FAT": {
     "name":	"Fat",
-    "unit":	"g"
+    "unit":	"g",
+    "color": "#665191"
   },
   "FATRN": {
     "name":	"Trans",
-    "unit": "g"
+    "unit": "g",
+    "color": "#ff5151"
   },
   "FE":	{
     "name": "Iron",
-    "unit": "mg"
+    "unit": "mg",
+    "color": "#ffa41b"
   },
   "FIBTG":	{
     "name": "Fiber",
-    "unit":	"g"
+    "unit":	"g",
+    "color": "ffa41b"
   },
   "FOLDFE":	{
     "name": "Folate (Equivalent)",
@@ -41,15 +50,18 @@
   },
   "K": {
     "name": "Potassium",
-    "unit": "mg"
+    "unit": "mg",
+    "color": "#f0a500"
   },
   "MG":{	
     "name": "Magnesium",
-    "unit":	"mg"
+    "unit":	"mg",
+    "color": "#005082"
   },
   "NA":	{
     "name": "Sodium",
-    "unit": "mg"
+    "unit": "mg",
+    "color": "#00a8cc"
   },
   "ENERC_KCAL": {
     "name": "Energy",
@@ -57,26 +69,32 @@
   },
   "SUGAR":	{
     "name": "Sugars",
-    "unit":	"g"
+    "unit":	"g",
+    "color": "#ff7c43"
   },
   "VITA_RAE":	{
     "name": "Vitamin A",
-    "unit":	"æg"
+    "unit":	"æg",
+    "color": "#0779e4"
   },
   "VITB12": {
     "name": "Vitamin B12",
-    "unit":	"æg"
+    "unit":	"æg",
+    "color": "#0779e4"
   },
   "VITB6A":	{
     "name": "Vitamin B6",
-    "unit":	"mg"
+    "unit":	"mg",
+    "color": "#4cbbb9"
   },
   "VITC":	{
     "name": "Vitamin C",
-    "unit": "mg"
+    "unit": "mg",
+    "color": "#ffa600"
   },
 	"PROCNT":	{
     "name": "Protein",
-    "unit":	"g"
+    "unit":	"g",
+    "color": "#003f5c"
   }
 }

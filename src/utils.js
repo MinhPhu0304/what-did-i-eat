@@ -3,7 +3,7 @@ import Label from './nutritionsName.json'
 
 export function getChartDataLabel (nutritionValue) {
   const filteredOutEnergy = Object.keys(nutritionValue).reduce((acc, nutrition) => {
-    if (nutrition !== 'ENERC_KCAL') {
+    if (nutrition !== 'ENERC_KCAL' && nutritionValue[nutrition] !== 0) {
       return {
         ...acc,
         [nutrition]: nutritionValue[nutrition]
@@ -24,10 +24,10 @@ export function getChartDataLabel (nutritionValue) {
       [nutrition]: filteredOutEnergy[nutrition]
     }
   }, {})
-  const labels = Object.keys(nutritionValue).filter(nutrition => nutrition !== 'ENERC_KCAL')
+  const labels = Object.keys(filteredOutEnergy)
   const labelName = labels.map(label => Label[label].name)
   const data = Object.values(nutritionConverted)
-  const backgroundColor = Object.keys(nutritionConverted).map(() => getRandomHashColor())
+  const backgroundColor = Object.keys(nutritionConverted).map((key) => Label[key].color)
   return {
     chartdata: {
       labels: labelName,
@@ -55,10 +55,6 @@ function convertToGrams (unit, value) {
     return value / 1000
   }
   return value / 1000000
-}
-
-function getRandomHashColor () {
-  return '#' + Math.floor(Math.random() * 16777215).toString(16)
 }
 
 export function getDefaultHeader () {
